@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Full Stack Projects</title>
+     <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #6a0dad 0%, #f4f4f4 100%);
+            background-size: 400% 400%;
+            animation: backgroundMove 3s ease infinite; /* Moving background gradient */
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        @keyframes backgroundMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+            margin-bottom: 40px;
+        }
+
+        .project {
+            background: #ffffff; /* Solid white background for projects */
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.4s ease-in-out, box-shadow 0.5s ease-in-out;
+            overflow: hidden; /* Ensure content doesn't overflow */
+            max-width: 100%; /* Prevent the card from growing too large */
+        }
+
+        .project:hover {
+            transform: scale(1.02); /* Slightly scale up the card */
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .project h2 {
+            color: #4b0082;
+            margin-top: 0;
+            font-size: 1.8em;
+            white-space: nowrap; /* Prevent text wrapping in the header */
+            overflow: hidden; /* Hide overflow */
+            text-overflow: ellipsis; /* Show ellipsis when text overflows */
+        }
+
+        .project p {
+            color: #333;
+            font-size: 1em;
+            word-wrap: break-word; /* Enable word wrapping for the project description */
+        }
+
+        .project h3 {
+            color: #4b0082;
+            margin-bottom: 10px;
+        }
+
+        .project ul {
+            padding-left: 20px;
+            list-style-type: square;
+        }
+
+        .project a {
+            color: #4b0082;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .project a:hover {
+            color: #6a5acd;
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px 0;
+            background-color: #6a0dad;
+            color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1> Full Stack Projects</h1>
+
+    <div class="project">
+        <h2>Online Examination System</h2>
+        <p>An online platform where students can take tests and receive results. Admins can manage exams, questions, and results. Includes timer-based exams and multiple question types.</p>
+        <h3>References:</h3>
+        <ul>
+            <li><a href="https://reactjs.org/docs/getting-started.html" target="_blank">React Documentation</a></li>
+            <li><a href="https://nodejs.org/en/docs/" target="_blank">Node.js Documentation</a></li>
+            <li><a href="https://www.mongodb.com/docs/" target="_blank">MongoDB Documentation</a></li>
+        </ul>
+    </div>
+
+    <div class="project">
+        <h2>Health Monitoring System (IoT-based)</h2>
+        <p>An IoT-based system to collect health data and allow doctors to monitor patients remotely. Patients can access health reports through a web application.</p>
+        <h3>References:</h3>
+        <ul>
+            <li><a href="https://nodejs.org/en/docs/" target="_blank">Node.js Documentation</a></li>
+            <li><a href="https://www.mongodb.com/docs/" target="_blank">MongoDB Documentation</a></li>
+            <li><a href="https://mqtt.org/" target="_blank">MQTT Protocol</a></li>
+        </ul>
+    </div>
+
+    <div class="project">
+        <h2>E-commerce Marketplace</h2>
+        <p>A fully functional e-commerce platform with user authentication, product search, and payment integration, allowing users to browse products and place orders.</p>
+        <h3>References:</h3>
+        <ul>
+            <li><a href="https://vuejs.org/v2/guide/" target="_blank">Vue.js Documentation</a></li>
+            <li><a href="https://nodejs.org/en/docs/" target="_blank">Node.js Documentation</a></li>
+            <li><a href="https://stripe.com/docs" target="_blank">Stripe Payment API</a></li>
+        </ul>
+    </div>
+
+    <div class="project">
+        <h2>Blockchain-based Voting System</h2>
+        <p>A decentralized voting system on blockchain to ensure transparency and security, preventing tampering with votes through token-based voting mechanisms.</p>
+        <h3>References:</h3>
+        <ul>
+            <li><a href="https://soliditylang.org/docs/" target="_blank">Solidity Documentation</a></li>
+            <li><a href="https://ethereum.org/en/developers/docs/" target="_blank">Ethereum Docs</a></li>
+            <li><a href="https://web3js.readthedocs.io/en/v1.7.1/" target="_blank">Web3.js Documentation</a></li>
+        </ul>
+    </div>
+
+    <div class="project">
+        <h2>AI-based Personal Finance Management App</h2>
+        <p>A finance management app that tracks expenses and provides AI-based recommendations on saving or investing based on spending patterns.</p>
+        <h3>References:</h3>
+        <ul>
+            <li><a href="https://nodejs.org/en/docs/" target="_blank">Node.js Documentation</a></li>
+            <li><a href="https://reactjs.org/docs/getting-started.html" target="_blank">React Documentation</a></li>
+            <li><a href="https://developer.bankapi.com/" target="_blank">Bank API Documentation</a></li>
+        </ul>
+    </div>
+
+    <div class="project">
+        <h2>Learning Management System (LMS)</h2>
+        <p>A platform where teachers can upload course materials, track progress, and students can take quizzes, submit assignments, and interact through chats and forums.</p>
+        <h3>References:</h3>
+        <ul>
+            <li><a href="https://angular.io/docs" target="_blank">Angular Documentation</a></li>
+            <li><a href="https://expressjs.com/en/starter/installing.html" target="_blank">Express.js Docs</a></li>
+            <li><a href="https://socket.io/docs/" target="_blank">Socket.io Documentation</a></li>
+        </ul>
+    </div>
+
+    <div class="project">
+        <h2>DeFi (Decentralized Finance) Platform</h2>
+        <p>A DeFi platform allowing users to lend, borrow, and invest cryptocurrencies through decentralized protocols. Features include staking, yield farming, and liquidity pools.</p>
+        <h3>References:</h3>
+        <ul>
+            <li><a href="https://soliditylang.org/docs/" target="_blank">Solidity Documentation</a></li>
+            <li><a href="https://ethereum.org/en/developers/docs/" target="_blank">Ethereum Docs</a></li>
+            <li><a href="https://web3js.readthedocs.io/en/v1.7.1/" target="_blank">Web3.js Documentation</a></li>
+        </ul>
+    </div>
+
+    <footer>
+        <p>© 2024  Full Stack Projects</p>
+    </footer>
+</body>
+</html>
