@@ -3,17 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Web App</title>
+    <title>Full Stack Web Development</title>
+
     <style>
         /* Inline CSS */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
+            margin: 15px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 25px;
+            background: linear-gradient(135deg, #6a0dad 0%, #f4f4f4 100%);
+            animation: backgroundMove 3s ease infinite; /* Moving background gradient */
+            overflow-x: hidden;
         }
         .container {
             background-color: #fff;
@@ -26,6 +31,19 @@
             font-size: 20px;
             margin-bottom: 15px;
         }
+        #a{
+            font-size: 20px;
+            text-decoration: none;
+            margin-bottom: 15px;
+            background-color: #0011ff;
+            color: white;
+            padding: 8px;
+            width: 100%;
+            margin: 12px 0;
+            cursor: pointer;
+            border-radius: 5px;
+            
+        }
         .options {
             margin-bottom: 15px;
         }
@@ -35,7 +53,7 @@
             border: none;
             padding: 10px;
             width: 100%;
-            margin: 5px 0;
+            margin: 12px 0;
             cursor: pointer;
             border-radius: 5px;
         }
@@ -54,17 +72,37 @@
             color: #28a745;
         }
         #nextBtn {
-            background-color:#38393c ;
+            background-color: #38393c;
             color: white;
             padding: 10px;
             border-radius: 5px;
             width: 100%;
         }
+        #timer {
+            font-size: 18px;
+            color: #ff0000; /* Red for timer */
+            margin-bottom: 20px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        #question-number {
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
+
+    
     <div class="container">
+        <a href="index.html" class="question" id="a">Home</a>
+        <div id="timer">Time Left: <span id="time">120</span> seconds</div>
+      
+        <div id="question-number">Question: <span id="currentQuestionNum">1</span> / <span id="totalQuestions"></span></div>
+        
         <div id="quiz-container">
+            
             <div class="question" id="question"></div>
             <div class="options" id="options"></div>
             <button id="nextBtn" style="display:none;">Next Question</button>
@@ -254,9 +292,20 @@
     }
         ];
 
+        
         let currentQuestionIndex = 0;
         let score = 0;
         let answerSelected = false;
+        const totalQuestions = questions.length;
+
+        // Set timer duration (in seconds)
+        const timerDuration =900;
+        let timeLeft = timerDuration;
+        const timerElement = document.getElementById('time');
+        const currentQuestionNumElement = document.getElementById('currentQuestionNum');
+        const totalQuestionsElement = document.getElementById('totalQuestions');
+        
+        totalQuestionsElement.textContent = totalQuestions;
 
         // Shuffle function
         function shuffle(array) {
@@ -286,6 +335,9 @@
                 button.onclick = () => selectAnswer(button, answer);
                 optionsElement.appendChild(button);
             });
+
+            // Update current question number
+            currentQuestionNumElement.textContent = currentQuestionIndex + 1;
         }
 
         function selectAnswer(button, answer) {
@@ -322,10 +374,23 @@
         });
 
         function showScore() {
+            clearInterval(timer); // Stop timer
             document.getElementById('quiz-container').style.display = 'none';
             document.getElementById('score-container').style.display = 'block';
             document.getElementById('final-score').textContent = `Your Score: ${score}/${questions.length}`;
         }
+
+        // Timer functionality
+        const timer = setInterval(() => {
+            timeLeft--;
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.textContent = `Time Left: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                showScore(); // Automatically show score when time is up
+            }
+        }, 1000);
 
         // Start quiz
         shuffle(questions);
