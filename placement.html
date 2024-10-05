@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Web App</title>
+    <style>
+        /* Inline CSS */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 500px;
+        }
+        .question {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        .options {
+            margin-bottom: 15px;
+        }
+        .options button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            margin: 5px 0;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .options button.correct {
+            background-color: #28a745;
+        }
+        .options button.wrong {
+            background-color: #dc3545;
+        }
+        .options button:hover {
+            background-color: #0056b3;
+        }
+        .score {
+            font-size: 20px;
+            font-weight: bold;
+            color: #28a745;
+        }
+        #nextBtn {
+            background-color:#38393c ;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="quiz-container">
+            <div class="question" id="question"></div>
+            <div class="options" id="options"></div>
+            <button id="nextBtn" style="display:none;">Next Question</button>
+        </div>
+        <div id="score-container" style="display:none;">
+            <div class="score" id="final-score"></div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What does the term 'Full Stack Development' refer to?",
+                answers: ["Development that involves stack data structures", "Development that involves front-end and back-end programming", "Development that involves only backend programming", "None of the above"],
+                correctAnswer: "Development that involves front-end and back-end programming"
+            },
+            {
+                question: "Which of the following is not a front-end technology?",
+                answers: ["HTML", "CSS", "JavaScript", "SQL"],
+                correctAnswer: "SQL"
+            },
+            {
+                question: "The purpose of the Front-end framework in Full stack development is ____",
+                answers: ["To provide the client-side interface", "To manage databases", "To reduce the server load", "To send HTTP requests"],
+                correctAnswer: "To provide the client-side interface"
+            },
+            {
+                question: "Amongst which of the following programming languages is used as a server-side language?",
+                answers: ["Python", "C++", "JavaScript", "Both A and C"],
+                correctAnswer: "Both A and C"
+            },
+            {
+                question: "What is a Front-end framework?",
+                answers: ["A development platform for developing user interfaces for software applications", "A database to store and manage the data of an application", "A development platform for writing server-side logic", "None of the above"],
+                correctAnswer: "A development platform for developing user interfaces for software applications"
+            },
+            {
+                question: "Which of the following languages is used for styling the front-end?",
+                answers: ["HTML", "jQuery", "CSS", "XML"],
+                correctAnswer: "CSS"
+            },
+            {
+                question: "Which of the following is not a back-end technology?",
+                answers: ["Node.js", "Express.js", "Flask", "Bootstrap"],
+                correctAnswer: "Bootstrap"
+            },
+            {
+                question: "Which of the following is used to connect the front-end to the back-end?",
+                answers: ["HTTP", "API", "SQL", "None of the above"],
+                correctAnswer: "API"
+            },
+            {
+                question: "What is a database?",
+                answers: ["A structured collection of data", "A programming language for front-end development", "A back-end framework", "None of the above"],
+                correctAnswer: "A structured collection of data"
+            },
+            {
+                question: "Which of the following is not a NoSQL database?",
+                answers: ["MongoDB", "Redis", "MySQL", "Cassandra"],
+                correctAnswer: "MySQL"
+            },
+            {
+                question: "Which of the following is an advantage of NoSQL databases?",
+                answers: ["Scalability", "Support for complex queries", "Standardized schemas", "Transaction support"],
+                correctAnswer: "Scalability"
+            },
+            {
+                question: "Which JavaScript framework is widely used for building single-page applications (SPAs)?",
+                answers: ["React.js", "Django", "Laravel", "Flask"],
+                correctAnswer: "React.js"
+            },
+            {
+                question: "What does REST stand for in REST API?",
+                answers: ["Random Execution for Stateless Transfers", "Representational State Transfer", "Resting Endpoints for Services and Transfers", "Real-time State Transfer"],
+                correctAnswer: "Representational State Transfer"
+            },
+            {
+                question: "Which of the following best describes the role of middleware in a web application?",
+                answers: ["Middleware connects front-end and back-end", "Middleware handles database transactions", "Middleware processes HTTP requests before they reach the back-end logic", "Middleware is used for user authentication"],
+                correctAnswer: "Middleware processes HTTP requests before they reach the back-end logic"
+            },
+            {
+                question: "Which of the following is an example of a front-end development task?",
+                answers: ["Creating API routes", "Designing the layout of a webpage", "Writing database queries", "Managing server-side security"],
+                correctAnswer: "Designing the layout of a webpage"
+            },
+            
+    {
+        question: "Which language is primarily used for styling web pages?",
+        answers: ["JavaScript", "HTML", "CSS", "Python"],
+        correctAnswer: "CSS"
+    },
+    {
+        question: "What is Node.js primarily used for?",
+        answers: ["Creating desktop applications", "Building mobile apps", "Server-side programming", "Database management"],
+        correctAnswer: "Server-side programming"
+    },
+    {
+        question: "Which of the following is a NoSQL database?",
+        answers: ["MySQL", "PostgreSQL", "MongoDB", "SQLite"],
+        correctAnswer: "MongoDB"
+    },
+    {
+        question: "What does REST stand for in web services?",
+        answers: ["Representational State Transfer", "Real-Time State Transfer", "Resource State Transfer", "Remote State Transfer"],
+        correctAnswer: "Representational State Transfer"
+    },
+    {
+        question: "Which of the following is used to make asynchronous HTTP requests in JavaScript?",
+        answers: ["XMLHttpRequest", "Fetch API", "Axios", "All of the above"],
+        correctAnswer: "All of the above"
+    },
+    {
+        question: "Which of the following is NOT a front-end framework?",
+        answers: ["React", "Angular", "Django", "Vue"],
+        correctAnswer: "Django"
+    },
+    {
+        question: "Which of the following is a commonly used back-end framework?",
+        answers: ["React", "Angular", "Express", "Bootstrap"],
+        correctAnswer: "Express"
+    },
+    {
+        question: "What is the purpose of middleware in a web application?",
+        answers: ["To handle database connections", "To process requests and responses", "To serve static files", "To manage user authentication"],
+        correctAnswer: "To process requests and responses"
+    },
+    {
+        question: "Which of the following is used for routing in a Node.js application?",
+        answers: ["Express Router", "HTTP Module", "Node Router", "All of the above"],
+        correctAnswer: "Express Router"
+    },
+    {
+        question: "What is the primary purpose of a web server?",
+        answers: ["To store data", "To host web applications", "To manage user sessions", "To style web pages"],
+        correctAnswer: "To host web applications"
+    },
+    {
+        question: "Which protocol is commonly used for secure communication over the internet?",
+        answers: ["HTTP", "FTP", "HTTPS", "SMTP"],
+        correctAnswer: "HTTPS"
+    },
+    {
+        question: "Which of the following is an example of a version control system?",
+        answers: ["Git", "MySQL", "Node.js", "MongoDB"],
+        correctAnswer: "Git"
+    },
+    {
+        question: "Which of the following is a popular front-end build tool?",
+        answers: ["Webpack", "Docker", "Nginx", "Apache"],
+        correctAnswer: "Webpack"
+    },
+    {
+        question: "What does CRUD stand for?",
+        answers: ["Create, Read, Update, Delete", "Connect, Read, Update, Delete", "Create, Retrieve, Update, Delete", "Connect, Retrieve, Update, Delete"],
+        correctAnswer: "Create, Read, Update, Delete"
+    },
+    {
+        question: "Which of the following is NOT a JavaScript data type?",
+        answers: ["String", "Number", "Boolean", "Character"],
+        correctAnswer: "Character"
+    },
+    {
+        question: "What does the term 'responsive web design' refer to?",
+        answers: ["Designing web pages for mobile devices", "Creating static web pages", "Designing web pages that adapt to different screen sizes", "Using frameworks for development"],
+        correctAnswer: "Designing web pages that adapt to different screen sizes"
+    },
+    {
+        question: "Which of the following is an example of a templating engine for Node.js?",
+        answers: ["EJS", "Pug", "Handlebars", "All of the above"],
+        correctAnswer: "All of the above"
+    },
+    {
+        question: "Which of the following is a CSS preprocessor?",
+        answers: ["Sass", "Less", "Stylus", "All of the above"],
+        correctAnswer: "All of the above"
+    },
+    {
+        question: "What is the purpose of the Document Object Model (DOM)?",
+        answers: ["To style web pages", "To represent the structure of a webpage", "To store data", "To handle user authentication"],
+        correctAnswer: "To represent the structure of a webpage"
+    },
+    {
+        question: "Which of the following is an example of a back-end programming language?",
+        answers: ["JavaScript", "HTML", "CSS", "SQL"],
+        correctAnswer: "SQL"
+    }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answerSelected = false;
+
+        // Shuffle function
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function loadQuestion() {
+            document.getElementById('nextBtn').style.display = 'none'; // Hide next button
+            answerSelected = false; // Reset selection
+            const questionElement = document.getElementById('question');
+            const optionsElement = document.getElementById('options');
+            const questionData = questions[currentQuestionIndex];
+
+            questionElement.textContent = questionData.question;
+            optionsElement.innerHTML = "";
+
+            // Shuffle answers
+            const shuffledAnswers = shuffle([...questionData.answers]);
+
+            shuffledAnswers.forEach(answer => {
+                const button = document.createElement('button');
+                button.textContent = answer;
+                button.onclick = () => selectAnswer(button, answer);
+                optionsElement.appendChild(button);
+            });
+        }
+
+        function selectAnswer(button, answer) {
+            if (answerSelected) return; // Prevent multiple selections
+
+            const questionData = questions[currentQuestionIndex];
+            const allButtons = document.querySelectorAll('.options button');
+
+            // Check if the answer is correct or wrong
+            if (answer === questionData.correctAnswer) {
+                button.classList.add('correct'); // Turn green
+                score++;
+            } else {
+                button.classList.add('wrong'); // Turn red
+                // Highlight the correct answer
+                allButtons.forEach(btn => {
+                    if (btn.textContent === questionData.correctAnswer) {
+                        btn.classList.add('correct');
+                    }
+                });
+            }
+
+            answerSelected = true; // Prevent further clicks
+            document.getElementById('nextBtn').style.display = 'block'; // Show next button
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                showScore();
+            }
+        });
+
+        function showScore() {
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('score-container').style.display = 'block';
+            document.getElementById('final-score').textContent = `Your Score: ${score}/${questions.length}`;
+        }
+
+        // Start quiz
+        shuffle(questions);
+        loadQuestion();
+    </script>
+</body>
+</html>
